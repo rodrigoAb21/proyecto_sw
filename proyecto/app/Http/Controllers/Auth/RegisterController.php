@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Cuenta;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -48,9 +49,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -62,10 +63,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $cuenta = new Cuenta();
+        $cuenta -> nro = $data['codigo'];
+        $cuenta -> saldo = 0;
+        $cuenta -> save();
+
         return User::create([
-            'name' => $data['name'],
+            'carnet' => $data['carnet'],
+            'codigo' => $data['codigo'],
+            'nombre' => $data['nombre'],
+            'apellido' => $data['apellido'],
+            'telefono' => $data['telefono'],
+            'direccion' => $data['direccion'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'cuenta_id' => $cuenta -> id,
         ]);
     }
 }

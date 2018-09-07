@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="{{asset('plantilla/img/favicon.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Paper Dashboard 2 by Creative Tim
+        Login
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -20,27 +20,22 @@
             margin: 0;
             padding: 0;
             background-color: #17a2b8;
-            height: 100vh;
         }
         #login .container #login-row #login-column #login-box {
-            margin-top: 100px;
-            max-width: 600px;
-            height: 350px;
-            border: 1px solid #8a8a8a;
+            margin-top: 5em;
+            border: 1px solid #ffffff;
             background-color: #ffffff;
+            border-radius: 2em;
+            margin-bottom: 5em;
         }
         #login .container #login-row #login-column #login-box #login-form {
             padding: 20px;
-        }
-        #login .container #login-row #login-column #login-box #login-form #register-link {
-            margin-top: -85px;
         }
     </style>
 </head>
 
 <body>
 <div id="login">
-    <h3 class="text-center text-white pt-5">Login form</h3>
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
@@ -50,17 +45,19 @@
                         <h3 class="text-center text-info">Login</h3>
                         <div class="form-group">
                             <label for="email" class="text-info">Email:</label><br>
-                            <input type="text" name="username" id="email" class="form-control">
+                            <input type="email" name="email" id="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-info btn-block" type="submit">Login</button>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-default btn-block" type="submit">Registrarse</button>
+                            <a href="{{url('/register')}}">
+                                <button class="btn btn-default btn-block" type="button">Registrarse</button>
+                            </a>
                         </div>
                     </form>
                 </div>

@@ -20,17 +20,17 @@ CREATE TABLE movimiento (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE user (
+CREATE TABLE users (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     apellido VARCHAR(255) NOT NULL,
     carnet VARCHAR(255) NOT NULL,
     telefono VARCHAR(255) NOT NULL,
     direccion VARCHAR(255) NOT NULL,
-    rasgo VARCHAR(255) NOT NULL,
     codigo VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    remember_token VARCHAR(255),
     cuenta_id INT NOT NULL,
     FOREIGN KEY (cuenta_id)
         REFERENCES cuenta (id)

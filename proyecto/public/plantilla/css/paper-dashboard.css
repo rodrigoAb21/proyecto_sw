@@ -3388,6 +3388,8 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 .dropdown-menu .dropdown-item:first-child {
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 .dropdown-menu .dropdown-item:last-child {
@@ -3823,7 +3825,7 @@ License - nucleoapp.com/license/
 @font-face {
   font-family: 'nucleo-icons';
   src: url("../fonts/nucleo-icons.eot");
-  src: url("../fonts/nucleo-icons.eot") format("embedded-opentype"), url("../fonts/nucleo-icons.woff2") format("woff2"), url("../fonts/nucleo-icons.woff") format("woff"), url("../fonts/nucleo-icons.ttf") format("truetype"), url("../fonts/nucleo-icons.svg") format("svg");
+  src: url("../fonts/nucleo-icons.eot") format("embedded-opentype"), url("../fonts/nucleo-icons.woff2") format("woff2"), url("../fonts/nucleo-icons.woff") format("woff"), url("../fonts/nucleo-icons.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

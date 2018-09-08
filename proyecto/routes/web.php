@@ -12,9 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/usuario/editar', 'UsuarioController@editar')->middleware('auth');
+Route::patch('/usuario/editar', 'UsuarioController@actualizar')->middleware('auth');
+

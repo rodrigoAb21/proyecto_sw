@@ -14,6 +14,7 @@ class VehiculoController extends Controller
     {
         $vehiculos = DB::table('vehiculo')
             ->where('user_id', '=', Auth::user()->id)
+            ->where('visible', '=', '1')
             ->paginate(5);
         return view('vehiculos.index', ['vehiculos' => $vehiculos]);
     }
@@ -71,6 +72,10 @@ class VehiculoController extends Controller
 
     public function destroy($id)
     {
-        //
+        $vehiculo = Vehiculo::findOrFail($id);
+        $vehiculo->visible = '0';
+        $vehiculo->update();
+
+        return redirect('/vehiculos');
     }
 }

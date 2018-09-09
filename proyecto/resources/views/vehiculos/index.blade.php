@@ -28,8 +28,9 @@
                                             <a href="{{url('/vehiculos/'.$vehiculo->id.'/edit')}}">
                                                 <button class="btn btn-warning"><i class="nc-icon nc-settings-gear-65"></i></button>
                                             </a>
-                                            <button class="btn btn-danger"><i class="nc-icon nc-simple-remove"></i></button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$vehiculo->id}}"><i class="nc-icon nc-simple-remove"></i></button>
                                         </td>
+                                        @include('vehiculos.modal')
                                     </tr>
                                 @endforeach
                                 </tbody>

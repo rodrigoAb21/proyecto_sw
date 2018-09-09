@@ -29,6 +29,7 @@ CREATE TABLE users (
     direccion VARCHAR(255) NOT NULL,
     codigo VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     remember_token VARCHAR(255),
     cuenta_id INT NOT NULL,
@@ -45,6 +46,7 @@ CREATE TABLE vehiculo (
     anho VARCHAR(255) NOT NULL,
     color VARCHAR(255) NOT NULL,
     capacidad INT NOT NULL,
+    visible CHAR NOT NULL DEFAULT '1',
     user_id INT NOT NULL,
     FOREIGN KEY (user_id)
         REFERENCES user (id)
@@ -54,6 +56,7 @@ CREATE TABLE vehiculo (
 CREATE TABLE ruta (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
+    visible CHAR NOT NULL DEFAULT '1',
     descripcion VARCHAR(255) NOT NULL
 );
 

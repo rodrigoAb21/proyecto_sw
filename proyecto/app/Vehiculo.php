@@ -15,6 +15,7 @@ class Vehiculo extends Model
         'modelo',
         'anho',
         'color',
+        'visible',
         'capacidad',
         'user_id',
 

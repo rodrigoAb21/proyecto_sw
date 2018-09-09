@@ -38,7 +38,7 @@
 <div id="login">
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-xs-12">
+            <div id="login-column" class="col-xs-12 col-md-8">
                 <div id="login-box" class="col-md-12">
                     <form id="login-form" class="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
@@ -65,9 +65,23 @@
                             <label for="apellido" class="text-info">Apellidos:</label><br>
                             <input type="text" name="apellido" id="apellido" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="telefono" class="text-info">Telefono:</label><br>
-                            <input type="number" name="telefono" id="telefono" class="form-control">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="telefono" class="text-info">Telefono:</label><br>
+                                    <input type="number" name="telefono" id="telefono" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="tipo" class="text-info">Ocupacion:</label><br>
+                                    <select name="tipo" id="tipo" class="form-control">
+                                        <option value="Estudiante">Estudiante</option>
+                                        <option value="Docente">Docente</option>
+                                        <option value="Administrativo">Administrativo</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="direccion" class="text-info">Direccion:</label><br>

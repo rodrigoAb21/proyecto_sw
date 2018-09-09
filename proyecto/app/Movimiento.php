@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movimiento extends Model
 {
-    protected $table = 'moviemiento';
+    protected $table = 'movimiento';
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
@@ -18,5 +18,5 @@ class Movimiento extends Model
 
     ];
 
-    public $TIPOS = ['DEPOSITO', 'COBRO DE SERVICIO', 'MULTA'];
+    public static $TIPOS = ['DEPOSITO', 'COBRO DE SERVICIO', 'MULTA'];
 }

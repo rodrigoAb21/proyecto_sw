@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::get('/usuario/editar', 'UsuarioController@editar')->middleware('auth');
 Route::patch('/usuario/editar', 'UsuarioController@actualizar')->middleware('auth');
-
+Route::get('/cartera', 'CuentaController@verMovimientos')->middleware('auth');
+Route::resource('/vehiculos','VehiculoController')->middleware('auth');

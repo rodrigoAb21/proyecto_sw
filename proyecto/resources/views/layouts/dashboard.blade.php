@@ -46,13 +46,13 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="">
+                        <a href="{{url('/cartera')}}">
                             <i class="nc-icon nc-money-coins"></i>
                             <p>Cartera</p>
                         </a>
                     </li>
                     <li class="">
-                        <a href="">
+                        <a href="{{url('/vehiculos')}}">
                             <i class="nc-icon nc-bus-front-12"></i>
                             <p>Vehiculos</p>
                         </a>

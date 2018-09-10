@@ -10,10 +10,10 @@
         Proyecto Software I
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <!-- CSS Files -->
+
     <link href="{{asset('plantilla/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{asset('plantilla/css/paper-dashboard.css')}}" rel="stylesheet" />
 </head>
@@ -21,9 +21,6 @@
 <body class="">
     <div class="wrapper ">
         <div class="sidebar" data-color="white" data-active-color="danger">
-            <!--
-              Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-          -->
             <div class="logo">
                 <a href="{{url('/')}}" class="simple-text logo-mini">
                     <div class="logo-image-small">
@@ -32,9 +29,6 @@
                 </a>
                 <a href="{{url('/')}}" class="simple-text logo-normal">
                     Dashboard
-                <!-- <div class="logo-image-big">
-              <img src="{{asset('plantilla/img/logo-big.png')}}">
-            </div> -->
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -79,7 +73,7 @@
             </div>
         </div>
         <div class="main-panel">
-            <!-- Navbar -->
+
             <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -122,18 +116,18 @@
                     </div>
                 </div>
             </nav>
-            <!-- End Navbar -->
+
             @yield('contenido')
-        </div> -->
+        </div>
     </div>
-    <!--   Core JS Files   -->
+
 <script src="{{asset('plantilla/js/core/jquery.min.js')}}"></script>
 <script src="{{asset('plantilla/js/core/popper.min.js')}}"></script>
 <script src="{{asset('plantilla/js/core/bootstrap.min.js')}}"></script>
 <script src="{{asset('plantilla/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-<!--  Notifications Plugin    -->
+
 <script src="{{asset('plantilla/js/plugins/bootstrap-notify.js')}}"></script>
-<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+
 <script src="{{asset('plantilla/js/paper-dashboard.min.js')}}" type="text/javascript"></script>
 </body>
 

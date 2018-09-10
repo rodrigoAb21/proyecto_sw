@@ -8,7 +8,7 @@
                         <h4 class="pr-2">Gestionar Vehiculos</h4><a href="{{url('/vehiculos/create')}}"><button class="btn btn-info btn-sm"><i class="nc-icon nc-simple-add"></i></button></a>
                     </div>
                     <div class="card-body">
-                        <div class="table-full-width">
+                        <div class="table-responsive-sm">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <th>Nro</th>

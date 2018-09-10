@@ -9,7 +9,7 @@
                         <h6 class="pull-right">Saldo: {{$cuenta -> saldo}} Bs.</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-full-width">
+                        <div class="table-responsive-sm">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <th>ID</th>

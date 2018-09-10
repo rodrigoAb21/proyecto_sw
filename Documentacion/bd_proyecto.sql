@@ -57,7 +57,11 @@ CREATE TABLE ruta (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     visible CHAR NOT NULL DEFAULT '1',
-    descripcion VARCHAR(255) NOT NULL
+    descripcion VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id)
+        REFERENCES user (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE punto (

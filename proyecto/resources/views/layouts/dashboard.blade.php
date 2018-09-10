@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="">
+                        <a href="{{url('/rutas')}}">
                             <i class="nc-icon nc-world-2"></i>
                             <p>Rutas</p>
                         </a>

@@ -24,3 +24,6 @@ Route::resource('/vehiculos','VehiculoController')->middleware('auth');
 
 Route::get('/pago', 'CajaController@nuevoPago')->middleware('auth');
 Route::post('/pago', 'CajaController@realizarPago')->middleware('auth');
+
+
+Route::resource('/rutas','RutaController')->middleware('auth');

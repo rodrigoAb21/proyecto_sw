@@ -129,6 +129,7 @@
 <script src="{{asset('plantilla/js/plugins/bootstrap-notify.js')}}"></script>
 
 <script src="{{asset('plantilla/js/paper-dashboard.min.js')}}" type="text/javascript"></script>
+    @stack('scripts')
 </body>
 
 </html>

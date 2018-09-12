@@ -19,7 +19,14 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-                                        <button type="button" class="btn btn-danger btn-lg btn-block">Limpiar Mapa</button>
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <button type="button" class="btn btn-warning btn-lg btn-block" onclick="eliminarUltimo()">Retroceder</button>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <button type="button" class="btn btn-danger btn-lg btn-block" onclick="eliminarPuntos()">Limpiar Mapa</button>
+                                            </div>
+                                        </div>
 
 
                                         <div class="form-group">
@@ -33,6 +40,8 @@
                                         </div>
 
                                     </div>
+
+                                    <table id="tabla" hidden></table>
 
                             </div>
 
@@ -48,37 +57,75 @@
         </div>
     </div>
 
-
+    @push('scripts')
     <script>
 
-        // This example creates a simple polygon representing the Bermuda Triangle.
+        var ruta;
+        var map;
+        var currentPath;
+        var cont = 0;
 
         function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
+            map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
                 center: {lat: -17.783312, lng: -63.182086},
                 mapTypeId: 'terrain'
             });
 
-            var flightPlanCoordinates = [
-                {lat: -17.817699, lng: -63.225777},
-                {lat: -17.822625, lng: -63.220469},
-                {lat: -17.829316, lng: -63.227976},
-                {lat: -17.823934, lng: -63.232901}
-            ];
-            var flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
+            var puntos = new google.maps.MVCArray();
+
+
+            ruta = new google.maps.Polyline({
+                path: puntos,
                 geodesic: true,
                 strokeColor: '#347cff',
                 strokeOpacity: 1.0,
                 strokeWeight: 6
             });
 
-            flightPath.setMap(map);
+            ruta.setMap(map);
+
+            google.maps.event.addListener(map, 'click', function (e) {
+                currentPath = ruta.getPath();
+                currentPath.push(e.latLng);
+                agregarPunto(e.latLng);
+                // console.log(e.latLng.lat());
+                // console.log(e.latLng.lng());
+            });
 
         }
+
+        function eliminarPuntos() {
+            for (var l = currentPath.length; l != 0; l--){
+                currentPath.pop();
+                eliminar(l);
+            }
+        }
+
+        function eliminarUltimo() {
+            currentPath.pop();
+            eliminar(cont);
+
+        }
+
+        function agregarPunto(location) {
+            cont++;
+            var longitud = location.lng();
+            var latitud = location.lat();
+            var fila = '<tr id="fila'+cont+'"><td><input name="longitudT[]" value="'+longitud+'"/><input name="latitudT[]" value="'+latitud+'"/></td></tr>';
+            $("#tabla").append(fila);
+        }
+
+        function eliminar(index){
+            if (cont > 0){
+                $("#fila" + index).remove();
+                cont--;
+            }
+        }
+
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
     </script>
+    @endpush
 @endsection

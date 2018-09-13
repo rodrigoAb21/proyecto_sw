@@ -60,7 +60,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="">
+                        <a href="{{url('/servicio')}}">
                             <i class="nc-icon nc-spaceship"></i>
                             <p>Servicio</p>
                         </a>

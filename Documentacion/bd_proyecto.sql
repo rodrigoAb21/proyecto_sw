@@ -74,7 +74,26 @@ CREATE TABLE punto (
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
+CREATE TABLE servicio (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sentido VARCHAR(255) NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    estado VARCHAR(255) NOT NULL,
+    cant_p INT NOT NULL,
+    costo FLOAT NOT NULL,
+    users_id INT NOT NULL,
+    vehiculo_id INT NOT NULL,
+    ruta_id INT NOT NULL,
+    FOREIGN KEY (users_id)
+        REFERENCES users (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (vehiculo_id)
+        REFERENCES vehiculo (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ruta_id)
+        REFERENCES ruta (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
 

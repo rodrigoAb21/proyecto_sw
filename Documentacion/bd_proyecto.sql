@@ -49,7 +49,7 @@ CREATE TABLE vehiculo (
     visible CHAR NOT NULL DEFAULT '1',
     user_id INT NOT NULL,
     FOREIGN KEY (user_id)
-        REFERENCES user (id)
+        REFERENCES users (id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -60,7 +60,7 @@ CREATE TABLE ruta (
     descripcion VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id)
-        REFERENCES user (id)
+        REFERENCES users (id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 

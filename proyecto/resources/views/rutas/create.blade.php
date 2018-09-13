@@ -21,10 +21,10 @@
 
                                         <div class="row">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn btn-warning btn-lg btn-block" onclick="eliminarUltimo()">Retroceder</button>
+                                                <button type="button" class="btn btn-warning btn-block" onclick="eliminarUltimo()">Retroceder</button>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <button type="button" class="btn btn-danger btn-lg btn-block" onclick="eliminarPuntos()">Limpiar Mapa</button>
+                                                <button type="button" class="btn btn-danger btn-block" onclick="eliminarPuntos()">Limpiar Mapa</button>
                                             </div>
                                         </div>
 
@@ -57,61 +57,56 @@
         </div>
     </div>
 
+    @push('shead')
+        <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    @endpush
+
     @push('scripts')
     <script>
 
-        var ruta;
-        var map;
-        var currentPath;
         var cont = 0;
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: {lat: -17.783312, lng: -63.182086},
-                mapTypeId: 'terrain'
-            });
 
-            var puntos = new google.maps.MVCArray();
+        L.mapbox.accessToken = 'pk.eyJ1Ijoicm9kcmlnb2FiMjEiLCJhIjoiY2psenZmcDZpMDN5bTNrcGN4Z2s2NWtqNSJ9.bSdjQfv-28z1j4zx7ljvcg';
+        var map = L.mapbox.map('map', 'mapbox.streets')
+            .setView([-17.783603, -63.180547], 14);
 
 
-            ruta = new google.maps.Polyline({
-                path: puntos,
-                geodesic: true,
-                strokeColor: '#347cff',
-                strokeOpacity: 1.0,
-                strokeWeight: 6
-            });
+        var puntos = [];
+        var opciones = {
+            color: '#347cff',
 
-            ruta.setMap(map);
+        };
 
-            google.maps.event.addListener(map, 'click', function (e) {
-                currentPath = ruta.getPath();
-                currentPath.push(e.latLng);
-                agregarPunto(e.latLng);
-                // console.log(e.latLng.lat());
-                // console.log(e.latLng.lng());
-            });
+        var ruta = L.polyline(puntos, opciones).addTo(map);
 
-        }
+
+        map.on('click', function(e) {
+            ruta.addLatLng(e.latlng)
+            agregarPunto(e.latlng);
+        });
+
 
         function eliminarPuntos() {
-            for (var l = currentPath.length; l != 0; l--){
-                currentPath.pop();
+            for (var l = ruta.getLatLngs().length; l != 0; l--){
+                eliminarUltimo();
                 eliminar(l);
             }
         }
 
         function eliminarUltimo() {
-            currentPath.pop();
-            eliminar(cont);
-
+            if(ruta.getLatLngs().length > 0){
+                ruta.getLatLngs().pop();
+                ruta.setLatLngs(ruta.getLatLngs());
+                eliminar(cont);
+            }
         }
 
         function agregarPunto(location) {
             cont++;
-            var longitud = location.lng();
-            var latitud = location.lat();
+            var latitud = location.lat;
+            var longitud = location.lng;
             var fila = '<tr id="fila'+cont+'"><td><input name="longitudT[]" value="'+longitud+'"/><input name="latitudT[]" value="'+latitud+'"/></td></tr>';
             $("#tabla").append(fila);
         }
@@ -123,9 +118,6 @@
             }
         }
 
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
     </script>
     @endpush
 @endsection

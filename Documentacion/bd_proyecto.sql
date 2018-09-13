@@ -66,8 +66,8 @@ CREATE TABLE ruta (
 
 CREATE TABLE punto (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    longitud FLOAT NOT NULL,
-    latitud FLOAT NOT NULL,
+    longitud DOUBLE NOT NULL,
+    latitud DOUBLE NOT NULL,
     ruta_id INT NOT NULL,
     FOREIGN KEY (ruta_id)
         REFERENCES ruta (id)

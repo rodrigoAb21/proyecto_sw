@@ -16,6 +16,8 @@
 
     <link href="{{asset('plantilla/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{asset('plantilla/css/paper-dashboard.css')}}" rel="stylesheet" />
+
+    @stack('shead')
 </head>
 
 <body class="">

@@ -28,42 +28,33 @@
         </div>
     </div>
 
+    @push('shead')
+        <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    @endpush
     @push('scripts')
         <script>
 
-            var ruta;
-            var map;
+            L.mapbox.accessToken = 'pk.eyJ1Ijoicm9kcmlnb2FiMjEiLCJhIjoiY2psenZmcDZpMDN5bTNrcGN4Z2s2NWtqNSJ9.bSdjQfv-28z1j4zx7ljvcg';
+            var map = L.mapbox.map('map', 'mapbox.streets')
+                .setView([-17.783603, -63.180547], 14);
+
+
             var puntos = [];
 
             @foreach($puntos as $punto)
-                puntos.push({lat:parseFloat('{{$punto -> latitud}}'), lng:parseFloat('{{$punto -> longitud}}')});
+            puntos.push([parseFloat('{{$punto -> latitud}}'),parseFloat('{{$punto -> longitud}}')]);
             @endforeach
 
-            function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 14,
-                    center: {lat: -17.783312, lng: -63.182086},
-                    mapTypeId: 'terrain'
-                });
+            var opciones = {
+                color: '#347cff',
 
-                console.log(puntos);
+            };
 
-                ruta = new google.maps.Polyline({
-                    path: puntos,
-                    geodesic: true,
-                    strokeColor: '#347cff',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 6
-                });
-
-                ruta.setMap(map);
-
-            }
+            L.polyline(puntos, opciones).addTo(map);
 
 
         </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
-        </script>
+
     @endpush
 @endsection

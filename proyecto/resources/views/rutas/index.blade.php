@@ -23,8 +23,8 @@
                                         <td>{{$ruta->nombre}}</td>
                                         <td>{{$ruta->descripcion}}</td>
                                         <td>
-                                            <a href="{{url('/rutas/'.$ruta->id.'/edit')}}">
-                                                <button class="btn btn-warning"><i class="nc-icon nc-settings-gear-65"></i></button>
+                                            <a href="{{url('/rutas/'.$ruta->id)}}">
+                                                <button class="btn btn-default"><i class="nc-icon nc-zoom-split"></i></button>
                                             </a>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$ruta->id}}"><i class="nc-icon nc-simple-remove"></i></button>
                                         </td>

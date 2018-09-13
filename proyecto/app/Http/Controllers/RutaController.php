@@ -58,6 +58,16 @@ class RutaController extends Controller
     }
 
 
+    public function show($id){
+        $ruta = Ruta::findOrFail($id);
+        $puntos = DB::table('punto')
+            ->where('punto.ruta_id', '=', $id)
+            ->orderBy('id','asc')
+            ->get();
+
+        return view('rutas.show', ['ruta' => $ruta, 'puntos' => $puntos]);
+    }
+
 
     public function edit($id)
     {
@@ -73,6 +83,10 @@ class RutaController extends Controller
 
     public function destroy($id)
     {
+        $ruta = Ruta::findOrFail($id);
+        $ruta -> visible = '0';
+        $ruta -> update();
 
+        return redirect('/rutas');
     }
 }

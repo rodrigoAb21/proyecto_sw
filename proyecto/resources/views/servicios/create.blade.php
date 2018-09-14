@@ -25,7 +25,14 @@
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label>Fecha a realizarse</label>
-                                        <input type="time" step="1" name="fecha" class="form-control" >
+                                        <input type="date" name="fecha" class="form-control" >
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Hora de inicio</label>
+                                        <input type="time" step="1" name="hora" class="form-control" >
                                     </div>
                                 </div>
 
@@ -38,7 +45,7 @@
 
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
-                                        <label>Cosot</label>
+                                        <label>Costo</label>
                                         <input type="number" name="costo" class="form-control">
                                     </div>
                                 </div>

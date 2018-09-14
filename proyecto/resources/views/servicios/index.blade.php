@@ -34,10 +34,10 @@
                                         <td>{{$servicio->cant_p}}</td>
                                         <td>{{$servicio->costo}}</td>
                                         <td>
-                                            <a href="{{url('/servicios/'.$servicio->id)}}">
+                                            <a href="{{url('/servicio/'.$servicio->id)}}">
                                                 <button class="btn btn-default"><i class="nc-icon nc-zoom-split"></i></button>
                                             </a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$ruta->id}}"><i class="nc-icon nc-simple-remove"></i></button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$servicio->id}}"><i class="nc-icon nc-simple-remove"></i></button>
                                         </td>
                                         @include('servicios.modal')
                                     </tr>

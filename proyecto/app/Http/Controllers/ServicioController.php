@@ -19,7 +19,7 @@ class ServicioController extends Controller
             ->join('ruta', 'servicio.ruta_id', '=', 'ruta.id')
             ->where('servicio.user_id','=', Auth::user()->id)
             ->where('servicio.estado', '=', 'En espera')
-            ->select('servicio.fecha', 'vehiculo.placa as vehiculo', 'servicio.sentido', 'servicio.estado',
+            ->select('servicio.id','servicio.fecha', 'vehiculo.placa as vehiculo', 'servicio.sentido', 'servicio.estado',
                 'servicio.cant_p', 'servicio.costo', 'ruta.nombre as ruta')
             ->paginate(5);
 
@@ -51,7 +51,7 @@ class ServicioController extends Controller
 
             $servicio = new Servicio();
             $servicio -> sentido = $request -> sentido;
-            $servicio -> fecha = $request -> fecha;
+            $servicio -> fecha = $request -> fecha ." ". $request -> hora;
             $servicio -> estado = 'En espera';
             $servicio -> cant_p = $request -> cant_p;
             $servicio -> costo = $request -> costo;
@@ -72,7 +72,7 @@ class ServicioController extends Controller
             DB::rollback();
         }
 
-        return redirect('/rutas');
+        return redirect('/servicio');
     }
 
 

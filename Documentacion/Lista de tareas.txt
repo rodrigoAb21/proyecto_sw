@@ -1,0 +1,16 @@
+Parte WEB:
+	- Usuario (colocar imagen)
+	- Vehiculo (colocar imagen)
+	- Dividir la vista principal del servicio (Ofrecer servicio / Solicitar servicio)
+	- Botones grandes en el menu principal
+	- Ver Servicio
+		* desde ahi tambien poder redirigir para ver
+			- Usuario (chofer) (Nombre completo, CI y Foto)
+			- Vehiculo (Marca, modelo, placa y foto)
+			- Ruta (Mapa web)
+
+Parte Movil:
+	- Interfaces
+
+Documentacion:	
+	-	Alcance

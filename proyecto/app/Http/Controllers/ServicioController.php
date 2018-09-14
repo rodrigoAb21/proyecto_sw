@@ -23,7 +23,7 @@ class ServicioController extends Controller
                 'servicio.cant_p', 'servicio.costo', 'ruta.nombre as ruta')
             ->paginate(5);
 
-        return view('servicios.index',['servicios' => $servicios]);
+        return view('servicios.ofrecer.index',['servicios' => $servicios]);
     }
 
 
@@ -40,7 +40,7 @@ class ServicioController extends Controller
             ->get();
         $sentidos = ['Ida a la U', 'Retorno de la U'];
 
-        return view('servicios.create', ['rutas' => $rutas, 'vehiculos' => $vehiculos, 'sentidos' => $sentidos]);
+        return view('servicios.ofrecer.create', ['rutas' => $rutas, 'vehiculos' => $vehiculos, 'sentidos' => $sentidos]);
     }
 
 
@@ -72,7 +72,7 @@ class ServicioController extends Controller
             DB::rollback();
         }
 
-        return redirect('/servicio');
+        return redirect('/servicio/ofrecer');
     }
 
 

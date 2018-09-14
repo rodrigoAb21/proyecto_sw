@@ -21,7 +21,7 @@ Route::get('/usuario/editar', 'UsuarioController@editar')->middleware('auth');
 Route::patch('/usuario/editar', 'UsuarioController@actualizar')->middleware('auth');
 Route::get('/cartera', 'CuentaController@verMovimientos')->middleware('auth');
 Route::resource('/vehiculos','VehiculoController')->middleware('auth');
-Route::resource('/servicio','ServicioController')->middleware('auth');
+Route::resource('/servicio/ofrecer','ServicioController')->middleware('auth');
 
 Route::get('/pago', 'CajaController@nuevoPago')->middleware('auth');
 Route::post('/pago', 'CajaController@realizarPago')->middleware('auth');

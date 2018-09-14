@@ -12,7 +12,7 @@
                 Estas seguro de eliminar al servicio: {{$servicio->id}} en la ruta:  {{$servicio->ruta}} - {{$servicio->vehiculo}}?
             </div>
             <div class="modal-footer">
-                <form action="{{url('/servicio/'.$servicio->id)}}" method="POST">
+                <form action="{{url('/servicio/ofrecer/'.$servicio->id)}}" method="POST">
                     {{method_field('DELETE')}}
                     {{csrf_field()}}
                     <button type="submit" class="btn btn-danger">Eliminar</button>

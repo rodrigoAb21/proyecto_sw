@@ -8,7 +8,7 @@
                         <h4 class="card-title">Nuevo Servicio</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{url('/servicio')}}" method="POST" autocomplete="off">
+                        <form action="{{url('/servicio/ofrecer')}}" method="POST" autocomplete="off">
                             {{csrf_field()}}
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">

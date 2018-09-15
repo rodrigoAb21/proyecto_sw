@@ -62,11 +62,11 @@
                     <li class="">
                         <a href="{{url('/servicio')}}">
                             <i class="nc-icon nc-spaceship"></i>
-                            <p>Servicio</p>
+                            <p>Servicios</p>
                         </a>
                     </li>
                     <li class="">
-                        <a href="">
+                        <a href="{{url('/mensajes')}}">
                             <i class="nc-icon nc-email-85"></i>
                             <p>Mensajes</p>
                         </a>

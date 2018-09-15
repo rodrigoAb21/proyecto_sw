@@ -24,7 +24,12 @@ Route::resource('/vehiculos','VehiculoController')->middleware('auth');
 Route::resource('/servicio/ofrecer','ServicioController')->middleware('auth');
 
 Route::get('/pago', 'CajaController@nuevoPago')->middleware('auth');
+
 Route::post('/pago', 'CajaController@realizarPago')->middleware('auth');
 
+Route::get('/servicio', function () {
+    return view('servicios.opciones');
+})->middleware('auth');
 
 Route::resource('/rutas','RutaController')->middleware('auth');
+Route::resource('/mensajes','MensajeController')->middleware('auth');

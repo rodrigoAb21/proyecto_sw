@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Cuenta;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -68,17 +69,27 @@ class RegisterController extends Controller
         $cuenta -> saldo = 0;
         $cuenta -> save();
 
-        return User::create([
-            'carnet' => $data['carnet'],
-            'codigo' => $data['codigo'],
-            'nombre' => $data['nombre'],
-            'apellido' => $data['apellido'],
-            'telefono' => $data['telefono'],
-            'direccion' => $data['direccion'],
-            'tipo' => $data['tipo'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'cuenta_id' => $cuenta -> id,
-        ]);
+
+        if (Input::hasFile('foto')) {
+            $file = Input::file('foto');
+            $file -> move(public_path().'/img/'.$data['codigo'].'/', $file->getClientOriginalName());
+
+            return User::create([
+                'carnet' => $data['carnet'],
+                'codigo' => $data['codigo'],
+                'nombre' => $data['nombre'],
+                'apellido' => $data['apellido'],
+                'foto' => $file -> getClientOriginalName(),
+                'telefono' => $data['telefono'],
+                'direccion' => $data['direccion'],
+                'tipo' => $data['tipo'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'cuenta_id' => $cuenta -> id,
+            ]);
+        }else{
+            return null;
+        }
+
     }
 }

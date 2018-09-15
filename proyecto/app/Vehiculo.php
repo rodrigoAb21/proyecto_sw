@@ -14,6 +14,7 @@ class Vehiculo extends Model
         'marca',
         'modelo',
         'anho',
+        'foto',
         'color',
         'visible',
         'capacidad',

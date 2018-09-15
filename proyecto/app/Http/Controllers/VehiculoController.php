@@ -6,6 +6,7 @@ use App\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class VehiculoController extends Controller
 {
@@ -34,6 +35,14 @@ class VehiculoController extends Controller
         $vehiculo->modelo = $request->modelo;
         $vehiculo->anho = $request->anho;
         $vehiculo->color = $request->color;
+
+        if (Input::hasFile('foto')) {
+            $file = Input::file('foto');
+            $file->move(public_path() . '/img/vehiculos/' .$request->placa . '/', $file->getClientOriginalName());
+            $vehiculo->foto = $file->getClientOriginalName();
+        }
+
+
         $vehiculo->capacidad = $request->capacidad;
         $vehiculo->user_id = Auth::user()->id;
         $vehiculo->save();
@@ -62,9 +71,16 @@ class VehiculoController extends Controller
         $vehiculo->marca = $request->marca;
         $vehiculo->modelo = $request->modelo;
         $vehiculo->anho = $request->anho;
+
+        if (Input::hasFile('foto')) {
+            $file = Input::file('foto');
+            $file->move(public_path() . '/img/vehiculos/' .$request->placa . '/', $file->getClientOriginalName());
+            $vehiculo->foto = $file->getClientOriginalName();
+        }
+
         $vehiculo->color = $request->color;
         $vehiculo->capacidad = $request->capacidad;
-        $vehiculo->update();
+        $vehiculo->save();
 
         return redirect('/vehiculos');
     }

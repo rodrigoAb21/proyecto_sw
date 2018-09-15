@@ -13,8 +13,7 @@
                                 <thead>
                                 <th>Nro</th>
                                 <th>Placa</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
+                                <th>Foto</th>
                                 <th>Opciones</th>
                                 </thead>
                                 <tbody>
@@ -22,8 +21,9 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$vehiculo->placa}}</td>
-                                        <td>{{$vehiculo->marca}}</td>
-                                        <td>{{$vehiculo->modelo}}</td>
+                                        <td>
+                                            <img src="{{asset('img/vehiculos/'.$vehiculo -> placa.'/'.$vehiculo->foto)}}" alt="{{$vehiculo -> placa}}" height="100px" width="100px" class="img-thumbnail">
+                                        </td>
                                         <td>
                                             <a href="{{url('/vehiculos/'.$vehiculo->id.'/edit')}}">
                                                 <button class="btn btn-warning"><i class="nc-icon nc-settings-gear-65"></i></button>

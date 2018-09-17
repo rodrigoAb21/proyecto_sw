@@ -1,0 +1,20 @@
+DESARROLLO DE UN PROTOTIPO DE SOFTWARE MÓVIL PARA IMPLEMENTAR UN TAXIMETRO ENFOCADO AL CONTROL DEL SERVICIO, ANGÉLICA MARÍA BABATIVA GOYENECHE, UNIVERSIDAD DISTRITAL FRANCISO JOSÈ DE CALDAS
+
+https://www.paradigmadigital.com/dev/desarrollando-aplicaciones-moviles-nativas-con-react-native/
+
+https://www.lanacion.com.ar/1670281-easy-taxi-una-aplicacion-que-llama-un-auto-con-solo-apretar-un-boton
+
+https://www.elconfidencial.com/tecnologia/2017-05-31/cabify-aplicacion-como-usar-servicios-tipos-coche_1391250/
+
+https://help.uber.com/es/h/738d1ff7-5fe0-4383-b34c-4a2480efd71e
+
+https://medium.com/@MasterOfCodeGlobal/best-10-android-frameworks-for-building-android-apps-d2d0ee48e464
+
+https://www.ecured.cu/Arquitectura_de_software
+
+
+
+
+
+
+

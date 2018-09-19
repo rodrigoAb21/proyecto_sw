@@ -29,29 +29,68 @@
     </div>
 
     @push('shead')
-        <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-        <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
     @endpush
     @push('scripts')
         <script>
 
-            L.mapbox.accessToken = 'pk.eyJ1Ijoicm9kcmlnb2FiMjEiLCJhIjoiY2psenZmcDZpMDN5bTNrcGN4Z2s2NWtqNSJ9.bSdjQfv-28z1j4zx7ljvcg';
-            var map = L.mapbox.map('map', 'mapbox.streets')
-                .setView([-17.783603, -63.180547], 14);
+            mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kcmlnb2FiMjEiLCJhIjoiY2psenZmcDZpMDN5bTNrcGN4Z2s2NWtqNSJ9.bSdjQfv-28z1j4zx7ljvcg';
+            var map = new mapboxgl.Map({
+                container: 'map', // container id
+                style: 'mapbox://styles/mapbox/streets-v9',
+                center: [-63.180547, -17.783603], // starting position
+                zoom: 12 // starting zoom
+            });
 
+            // Add geolocate control to the map.
+            map.addControl(new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            }));
 
-            var puntos = [];
-
-            @foreach($puntos as $punto)
-            puntos.push([parseFloat('{{$punto -> latitud}}'),parseFloat('{{$punto -> longitud}}')]);
-            @endforeach
-
-            var opciones = {
-                color: '#347cff',
-
+            // Create a GeoJSON source with an empty lineString.
+            var ruta = {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": []
+                    }
+                }]
             };
 
-            L.polyline(puntos, opciones).addTo(map);
+
+            map.on('load', function() {
+
+                @foreach($puntos as $punto)
+                    ruta.features[0].geometry.coordinates.push([parseFloat('{{$punto -> longitud}}'),parseFloat('{{$punto -> latitud}}')]);
+                @endforeach
+
+                map.addLayer({
+                    'id': 'linea',
+                    'type': 'line',
+                    'source': {
+                        'type': 'geojson',
+                        'data': ruta
+                    },
+                    'layout': {
+                        'line-cap': 'round',
+                        'line-join': 'round'
+                    },
+                    'paint': {
+                        'line-color': '#338ced',
+                        'line-width': 8,
+                        'line-opacity': .8
+                    }
+                });
+
+
+
+            });
 
 
         </script>

@@ -58,8 +58,8 @@
     </div>
 
     @push('shead')
-        <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-        <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
     @endpush
 
     @push('scripts')
@@ -67,39 +67,77 @@
 
         var cont = 0;
 
+        mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kcmlnb2FiMjEiLCJhIjoiY2psenZmcDZpMDN5bTNrcGN4Z2s2NWtqNSJ9.bSdjQfv-28z1j4zx7ljvcg';
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [-63.180547, -17.783603], // starting position
+            zoom: 12 // starting zoom
+        });
 
-        L.mapbox.accessToken = 'pk.eyJ1Ijoicm9kcmlnb2FiMjEiLCJhIjoiY2psenZmcDZpMDN5bTNrcGN4Z2s2NWtqNSJ9.bSdjQfv-28z1j4zx7ljvcg';
-        var map = L.mapbox.map('map', 'mapbox.streets')
-            .setView([-17.783603, -63.180547], 14);
+        // Add geolocate control to the map.
+        map.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
 
-
-        var puntos = [];
-        var opciones = {
-            color: '#347cff',
-
+        // Create a GeoJSON source with an empty lineString.
+        var ruta = {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": []
+                }
+            }]
         };
 
-        var ruta = L.polyline(puntos, opciones).addTo(map);
+        map.on('load', function() {
+            map.addLayer({
+                'id': 'linea',
+                'type': 'line',
+                'source': {
+                    'type': 'geojson',
+                    'data': ruta
+                },
+                'layout': {
+                    'line-cap': 'round',
+                    'line-join': 'round'
+                },
+                'paint': {
+                    'line-color': '#338ced',
+                    'line-width': 8,
+                    'line-opacity': .8
+                }
+            });
 
+            map.on('click', function(e) {
+                ruta.features[0].geometry.coordinates.push([e.lngLat.lng, e.lngLat.lat]);
+                map.getSource('linea').setData(ruta);
+                agregarPunto(e.lngLat);
+            });
 
-        map.on('click', function(e) {
-            ruta.addLatLng(e.latlng)
-            agregarPunto(e.latlng);
         });
 
 
+
         function eliminarPuntos() {
-            for (var l = ruta.getLatLngs().length; l != 0; l--){
+
+            for (var l = ruta.features[0].geometry.coordinates.length; l != 0; l--){
                 eliminarUltimo();
-                eliminar(l);
+                eliminar();
             }
+
         }
 
         function eliminarUltimo() {
-            if(ruta.getLatLngs().length > 0){
-                ruta.getLatLngs().pop();
-                ruta.setLatLngs(ruta.getLatLngs());
-                eliminar(cont);
+            if(ruta.features[0].geometry.coordinates.length > 0){
+                ruta.features[0].geometry.coordinates.pop();
+                map.getSource('line-animation').setData(ruta);
+                eliminar();
             }
         }
 
@@ -111,9 +149,9 @@
             $("#tabla").append(fila);
         }
 
-        function eliminar(index){
+        function eliminar(){
             if (cont > 0){
-                $("#fila" + index).remove();
+                $("#fila" + cont).remove();
                 cont--;
             }
         }

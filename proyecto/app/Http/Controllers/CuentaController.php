@@ -14,15 +14,16 @@ class CuentaController extends Controller
     public function verMovimientos(){
         $movimientos = DB::table('movimiento')
             ->where('cuenta_id', '=', Auth::user()->cuenta_id)
-            ->paginate(5);
+            ->paginate(10);
 
         $cuenta = Cuenta::findOrFail(Auth::user()->cuenta_id);
 
         $nuevaFecha = new DateTime();
         $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
+
         foreach ($movimientos as $movimiento){
             $nuevaFecha -> setTimestamp($movimiento -> fecha);
-            $movimiento -> fecha = $nuevaFecha -> format('d/m/Y, H:i:s');
+            $movimiento -> fecha = $nuevaFecha -> format('d/m/Y, H:i');
         }
 
         return view('cartera.verMovimientos',['movimientos' => $movimientos, 'cuenta' => $cuenta]);

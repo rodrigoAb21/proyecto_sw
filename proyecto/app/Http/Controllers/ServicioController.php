@@ -23,7 +23,16 @@ class ServicioController extends Controller
             ->where('servicio.estado', '=', 'En espera')
             ->select('servicio.id','servicio.fecha', 'vehiculo.placa as vehiculo', 'servicio.sentido', 'servicio.estado',
                 'servicio.cant_p', 'servicio.costo', 'ruta.nombre as ruta')
-            ->paginate(5);
+            ->orderBy('servicio.fecha', 'asc')
+            ->get();
+
+        $nuevaFecha = new DateTime();
+        $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
+
+        foreach ($servicios as $servicio){
+            $nuevaFecha -> setTimestamp($servicio -> fecha);
+            $servicio -> fecha = $nuevaFecha -> format('d/m/Y, H:i');
+        }
 
         return view('servicios.ofrecer.index',['servicios' => $servicios]);
     }

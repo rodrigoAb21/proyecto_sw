@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Servicio;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +53,8 @@ class ServicioController extends Controller
 
             $servicio = new Servicio();
             $servicio -> sentido = $request -> sentido;
-            $servicio -> fecha = $request -> fecha ." ". $request -> hora;
+            $dia = new DateTime($request->fecha." ".$request->hora, new DateTimeZone('America/La_Paz'));
+            $servicio -> fecha = $dia -> getTimestamp();
             $servicio -> estado = 'En espera';
             $servicio -> cant_p = $request -> cant_p;
             $servicio -> costo = $request -> costo;

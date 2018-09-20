@@ -13,7 +13,7 @@ CREATE TABLE movimiento (
     descripcion VARCHAR(255) NOT NULL,
     tipo VARCHAR(255) NOT NULL,
     monto FLOAT NOT NULL,
-    fecha TIMESTAMP NOT NULL,
+    fecha INT UNSIGNED NOT NULL,
     cuenta_id INT NOT NULL,
     FOREIGN KEY (cuenta_id)
         REFERENCES cuenta (id)
@@ -79,7 +79,7 @@ CREATE TABLE punto (
 CREATE TABLE servicio (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sentido VARCHAR(255) NOT NULL,
-    fecha TIMESTAMP NOT NULL,
+    fecha INT UNSIGNED NOT NULL,
     estado VARCHAR(255) NOT NULL,
     cant_p INT NOT NULL,
     costo FLOAT NOT NULL,

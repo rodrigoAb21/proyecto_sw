@@ -32,7 +32,7 @@
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label>Hora de inicio</label>
-                                        <input type="time" step="1" name="hora" class="form-control" >
+                                        <input type="time" name="hora" class="form-control" >
                                     </div>
                                 </div>
 

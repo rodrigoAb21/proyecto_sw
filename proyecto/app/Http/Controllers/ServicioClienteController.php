@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class ServicioClienteController extends Controller
 {
@@ -37,30 +40,13 @@ class ServicioClienteController extends Controller
         try {
             DB::beginTransaction();
 
-            $servicio = new Servicio();
-            $servicio -> sentido = $request -> sentido;
-            $servicio -> fecha = $request -> fecha ." ". $request -> hora;
-            $servicio -> estado = 'En espera';
-            $servicio -> cant_p = $request -> cant_p;
-            $servicio -> costo = $request -> costo;
-            $servicio -> user_id = Auth::user() -> id;
-            $servicio -> vehiculo_id = $request -> vehiculo_id;
-            $servicio -> ruta_id = $request -> ruta_id;
-            $servicio -> save();
-
-            /*
-                Se deberia ver lo del pago...
-                un intermediario que acumule lo que reciba de los clientes
-                 que contratan el servicio de id:XXX y al momento de rendir
-                el "informe" este inserte la suma total a la cuenta del chofer
-            */
 
             DB::commit();
         }catch (Exception $e){
             DB::rollback();
         }
 
-        return redirect('/servicio/ofrecer');
+        return redirect('/servicio/solicitar');
     }
 
 
@@ -84,5 +70,21 @@ class ServicioClienteController extends Controller
     public function destroy($id)
     {
 
+    }
+
+
+    public function buscar(Request $request){
+        // transformando la fecha del formulario a entero
+        $dia = new DateTime($request->fecha." ".$request->hora, new DateTimeZone('America/La_Paz'));
+        $dia = $dia ->getTimestamp();
+
+        // recuperando todos los servicios que se encuentre +- 1hr de la fecha
+        $servicios_dia = DB::table('servicio')
+            ->whereBetween('fecha', [($dia - 3600),($dia + 3600)])
+            ->get();
+
+        // de acuerdo a la latitud y longitud senhalada armar un area limite cuadradada alrededor de 500mts
+
+        dd($servicios_dia);
     }
 }

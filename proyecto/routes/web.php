@@ -24,7 +24,12 @@ Route::resource('/vehiculos','VehiculoController')->middleware('auth');
 Route::resource('/servicio/ofrecer','ServicioController')->middleware('auth');
 Route::resource('/servicio/solicitar','ServicioClienteController')->middleware('auth');
 
+Route::post('/servicio/solicitar/busqueda', 'ServicioClienteController@buscar')->middleware('auth');
+
+
+
 Route::get('/pago', 'CajaController@nuevoPago')->middleware('auth');
+
 
 Route::post('/pago', 'CajaController@realizarPago')->middleware('auth');
 

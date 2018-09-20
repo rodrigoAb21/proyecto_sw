@@ -31,7 +31,7 @@ class CajaController extends Controller
             $movimiento->descripcion = "Deposito desde caja.";
             $movimiento->tipo = "DEPOSITO";
             $my_time = Carbon::now('America/La_Paz');
-            $movimiento->fecha = $my_time -> toDateTimeString();
+            $movimiento->fecha = $my_time -> getTimestamp();
             $movimiento->monto = $request->monto;
             $movimiento->cuenta_id = $cuenta->id;
             if ($movimiento->save()){

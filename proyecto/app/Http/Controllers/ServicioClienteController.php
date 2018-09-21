@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Cuenta;
+use App\Movimiento;
+use App\Serv_Usr;
 use App\Servicio;
 use App\User;
 use App\Vehiculo;
@@ -18,13 +21,22 @@ class ServicioClienteController extends Controller
 
     public function index()
     {
+        $nuevaFecha = new DateTime();
+        $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
+
         $servicios = DB::table('serv_usr')
             ->join('servicio', 'servicio.id', '=', 'serv_usr.servicio_id')
             ->where('serv_usr.user_id','=', Auth::user()->id)
             ->where('serv_usr.estado', '=', 'En espera')
-            ->select('servicio.id', 'servicio.fecha', 'servicio.estado', 'servicio.costo')
+            ->select('servicio.id', 'servicio.fecha', 'servicio.estado', 'servicio.costo', 'servicio.sentido')
             ->orderBy('servicio.fecha', 'asc')
             ->paginate(5);
+
+
+        foreach ($servicios as $servicio){
+            $nuevaFecha -> setTimestamp($servicio -> fecha);
+            $servicio -> fecha = $nuevaFecha -> format('d/m/Y, H:i');
+        }
 
         return view('servicios.solicitar.index',['servicios' => $servicios]);
     }
@@ -43,6 +55,44 @@ class ServicioClienteController extends Controller
         try {
             DB::beginTransaction();
 
+            // Se verifica si hay saldo y asiento disponible
+            $cuenta = Cuenta::findOrFail(Auth::user()->cuenta_id);
+            $servicio = Servicio::findOrFail($request -> servicio_id);
+            if(($servicio -> cant_p > 0) && ($request -> monto < $cuenta -> saldo)){
+
+                // Se crea un movimiento y se descuenta
+                $movimiento = new Movimiento();
+                $movimiento->descripcion = "Cobro de servicio con id: ".$request -> servicio_id;
+                $movimiento->tipo = "COBRO";
+                $my_time = Carbon::now('America/La_Paz');
+                $movimiento->fecha = $my_time -> getTimestamp();
+                $movimiento->monto = $request->monto;
+                $movimiento->cuenta_id = $cuenta->id;
+
+                // momento del descuento
+                if ($movimiento->save()){
+                    $cuenta-> saldo = $cuenta->saldo - $request->monto;
+                    $cuenta-> save();
+                };
+
+                // Se crea un nuevo serv_usr
+                $serv_usr = new Serv_Usr();
+                $serv_usr -> longitud = $request -> longitud;
+                $serv_usr -> latitud = $request -> latitud;
+                $serv_usr -> monto = $request -> monto;
+                $serv_usr -> servicio_id = $request -> servicio_id;
+                $serv_usr -> user_id = Auth::user()->id;
+                $serv_usr -> save();
+
+                // Se cambia la cantidad de pasajeros disponibles del servicio
+                $servicio -> cant_p = $servicio -> cant_p - 1;
+                $servicio -> save();
+
+            }else{
+
+                // se debe enviar un mensaje de que no se cuenta con el saldo
+
+            }
 
             DB::commit();
         }catch (Exception $e){

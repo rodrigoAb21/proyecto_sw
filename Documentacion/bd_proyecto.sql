@@ -98,9 +98,11 @@ CREATE TABLE servicio (
 );
 
 CREATE TABLE serv_usr (
-    id INT NOT NULL PRIMARY KEY,
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     estado VARCHAR(255) DEFAULT 'En espera',
     monto FLOAT NOT NULL,
+    latitud DOUBLE NOT NULL,
+    longitud DOUBLE NOT NULL,
     servicio_id INT NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (servicio_id)

@@ -5,7 +5,7 @@
             <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="card-body">
-                        <img src="{{asset('img/vehiculos/'.$vehiculo -> placa.'/'.$vehiculo->foto)}}" alt="{{$vehiculo -> placa}}"class="img-thumbnail" style="margin: 0 auto; display: block;"  class="img-thumbnail">
+                        <img src="{{asset('img/vehiculos/'.$vehiculo -> placa.'/'.$vehiculo->foto)}}" alt="{{$vehiculo -> placa}}"class="img-thumbnail" style="margin: 0 auto; display: block;" >
                     </div>
                 </div>
             </div>

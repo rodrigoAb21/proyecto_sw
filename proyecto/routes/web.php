@@ -25,6 +25,7 @@ Route::resource('/servicio/ofrecer','ServicioController')->middleware('auth');
 Route::resource('/servicio/solicitar','ServicioClienteController')->middleware('auth');
 
 Route::post('/servicio/solicitar/busqueda', 'ServicioClienteController@buscar')->middleware('auth');
+Route::get('/servicio/solicitar/detalle/{id}', 'ServicioClienteController@detalle')->middleware('auth');
 
 
 

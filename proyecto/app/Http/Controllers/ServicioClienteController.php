@@ -100,16 +100,21 @@ class ServicioClienteController extends Controller
         $lng_max = $longitud + 0.005;
         $lng_min = $longitud - 0.005;
 
-
+        $nuevaFecha = new DateTime();
+        $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
 
         $cc = count($servicios_dia);
         while ($cc > 0){
+            $nuevaFecha -> setTimestamp($servicios_dia[$cc-1] -> fecha);
+            $servicios_dia[$cc-1] -> fecha = $nuevaFecha -> format('H:i');
+
             $dentro = $this->dentro($lat_max, $lat_min, $lng_max, $lng_min, $servicios_dia[$cc-1] -> ruta_id);
             if (!$dentro){
                 unset($servicios_dia[$cc-1]);
             }
             $cc--;
         }
+
 
         return view('servicios.solicitar.resultados', ['servicios' => $servicios_dia]);
     }
@@ -134,9 +139,15 @@ class ServicioClienteController extends Controller
 
     public function detalle($id){
         $servicio = Servicio::findOrFail($id);
+
+        $nuevaFecha = new DateTime();
+        $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
+        $nuevaFecha -> setTimestamp($servicio -> fecha);
+        $servicio -> fecha = $nuevaFecha -> format('H:i');
+
         $conductor = User::findOrFail($servicio->user_id);
         $vehiculo = Vehiculo::findOrFail($servicio -> vehiculo_id);
-        $puntos = DB::table('puntos')
+        $puntos = DB::table('punto')
             ->where('ruta_id', '=', $servicio -> ruta_id)
             ->orderBy('id','asc')
             ->get();

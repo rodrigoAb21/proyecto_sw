@@ -30,7 +30,7 @@ class ServicioClienteController extends Controller
             ->where('serv_usr.estado', '=', 'En espera')
             ->select('serv_usr.id as idd', 'servicio.id', 'servicio.fecha', 'servicio.estado', 'servicio.costo', 'servicio.sentido')
             ->orderBy('servicio.fecha', 'asc')
-            ->paginate(5);
+            ->get();
 
 
         foreach ($servicios as $servicio){
@@ -126,6 +126,7 @@ class ServicioClienteController extends Controller
 
 
     public function buscar(Request $request){
+
         // transformando la fecha del formulario a entero
         $dia = new DateTime($request->fecha." ".$request->hora, new DateTimeZone('America/La_Paz'));
         $dia = $dia ->getTimestamp();
@@ -135,6 +136,7 @@ class ServicioClienteController extends Controller
         $servicios_dia = DB::table('servicio')
             ->whereBetween('fecha', [($dia - 3600),($dia + 3600)])
             ->where('sentido','=', $request -> sentido)
+            ->where('user_id','!=', Auth::user()->id)
             ->get();
 
         // de acuerdo a la latitud y longitud senhalada armar un area limite cuadradada alrededor de 500mts

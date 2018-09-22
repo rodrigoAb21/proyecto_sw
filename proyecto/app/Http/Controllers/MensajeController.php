@@ -14,7 +14,7 @@ class MensajeController extends Controller
         $mensajes = DB::table('mensaje')
             ->where('user_id', '=', Auth::user()->id)
             ->orderBy('fecha', 'asc')
-            ->paginate(10);
+            ->get();
 
         $nuevaFecha = new DateTime();
         $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));

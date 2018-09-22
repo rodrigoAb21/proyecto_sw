@@ -14,7 +14,7 @@ class CuentaController extends Controller
     public function verMovimientos(){
         $movimientos = DB::table('movimiento')
             ->where('cuenta_id', '=', Auth::user()->cuenta_id)
-            ->paginate(10);
+            ->get();
 
         $cuenta = Cuenta::findOrFail(Auth::user()->cuenta_id);
 

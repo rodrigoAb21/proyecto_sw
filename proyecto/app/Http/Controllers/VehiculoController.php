@@ -16,7 +16,7 @@ class VehiculoController extends Controller
         $vehiculos = DB::table('vehiculo')
             ->where('user_id', '=', Auth::user()->id)
             ->where('visible', '=', '1')
-            ->paginate(5);
+            ->get();
         return view('vehiculos.index', ['vehiculos' => $vehiculos]);
     }
 

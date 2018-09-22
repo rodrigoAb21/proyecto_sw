@@ -14,7 +14,7 @@ class RutaController extends Controller
     {
         $rutas = DB::table('ruta')
             ->where('user_id','=', Auth::user()->id)
-            ->paginate(5);
+            ->get();
         return view('rutas.index',['rutas' => $rutas]);
     }
 

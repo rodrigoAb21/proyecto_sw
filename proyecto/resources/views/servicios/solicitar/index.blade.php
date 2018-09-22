@@ -28,12 +28,10 @@
                                         <td>{{$servicio->estado}}</td>
                                         <td>{{$servicio->costo}}</td>
                                         <td>
-                                            <a href="{{url('/servicio/solicitar/'.$servicio->id)}}">
+                                            <a href="{{url('/servicio/solicitar/'.$servicio->idd)}}">
                                                 <button class="btn btn-default"><i class="nc-icon nc-zoom-split"></i></button>
                                             </a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$servicio->id}}"><i class="nc-icon nc-simple-remove"></i></button>
                                         </td>
-                                        @include('servicios.solicitar.modal')
                                     </tr>
                                 @endforeach
                                 </tbody>

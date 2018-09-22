@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Serv_Usr;
 use App\Servicio;
+use App\Vehiculo;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -18,11 +20,10 @@ class ServicioController extends Controller
     {
         $servicios = DB::table('servicio')
             ->join('vehiculo', 'servicio.vehiculo_id', '=', 'vehiculo.id')
-            ->join('ruta', 'servicio.ruta_id', '=', 'ruta.id')
             ->where('servicio.user_id','=', Auth::user()->id)
             ->where('servicio.estado', '=', 'En espera')
             ->select('servicio.id','servicio.fecha', 'vehiculo.placa as vehiculo', 'servicio.sentido', 'servicio.estado',
-                'servicio.cant_p', 'servicio.costo', 'ruta.nombre as ruta')
+                'servicio.cant_p', 'servicio.costo')
             ->orderBy('servicio.fecha', 'asc')
             ->get();
 
@@ -89,24 +90,27 @@ class ServicioController extends Controller
 
 
     public function show($id){
+        $servicio = Servicio::findOrFail($id);
 
+        $nuevaFecha = new DateTime();
+        $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
+        $nuevaFecha -> setTimestamp($servicio -> fecha);
+        $servicio -> fecha = $nuevaFecha -> format('H:i');
+
+        $solicitudes = DB::table('serv_usr')
+            ->join('users', 'users.id', 'serv_usr.user_id')
+            ->where('serv_usr.servicio_id', '=', $servicio -> id)
+            ->select('users.nombre', 'users.apellido', 'users.foto', 'users.codigo', 'serv_usr.latitud', 'serv_usr.longitud')
+            ->get();
+
+        $puntos = DB::table('punto')
+            ->where('ruta_id', '=', $servicio -> ruta_id)
+            ->orderBy('id','asc')
+            ->get();
+
+        $vehiculo = Vehiculo::findOrFail($servicio -> vehiculo_id);
+
+        return view('servicios.ofrecer.show', ['servicio' => $servicio, 'solicitudes' => $solicitudes, 'vehiculo' => $vehiculo, 'puntos' => $puntos]);
     }
 
-
-    public function edit($id)
-    {
-
-    }
-
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-
-    public function destroy($id)
-    {
-
-    }
 }

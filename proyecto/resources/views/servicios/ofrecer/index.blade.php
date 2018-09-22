@@ -13,7 +13,6 @@
                                 <thead>
                                 <th>Nro</th>
                                 <th>Fecha</th>
-                                <th>Ruta</th>
                                 <th>Vehiculo</th>
                                 <th>Sentido</th>
                                 <th>Estado</th>
@@ -25,9 +24,8 @@
                                 <tbody>
                                 @foreach($servicios as $servicio)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$servicio->id}}</td>
                                         <td>{{$servicio->fecha}}</td>
-                                        <td>{{$servicio->ruta}}</td>
                                         <td>{{$servicio->vehiculo}}</td>
                                         <td>{{$servicio->sentido}}</td>
                                         <td>{{$servicio->estado}}</td>
@@ -37,9 +35,7 @@
                                             <a href="{{url('/servicio/ofrecer/'.$servicio->id)}}">
                                                 <button class="btn btn-default"><i class="nc-icon nc-zoom-split"></i></button>
                                             </a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{$servicio->id}}"><i class="nc-icon nc-simple-remove"></i></button>
                                         </td>
-                                        @include('servicios.ofrecer.modal')
                                     </tr>
                                 @endforeach
                                 </tbody>

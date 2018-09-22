@@ -28,7 +28,7 @@ class ServicioClienteController extends Controller
             ->join('servicio', 'servicio.id', '=', 'serv_usr.servicio_id')
             ->where('serv_usr.user_id','=', Auth::user()->id)
             ->where('serv_usr.estado', '=', 'En espera')
-            ->select('servicio.id', 'servicio.fecha', 'servicio.estado', 'servicio.costo', 'servicio.sentido')
+            ->select('serv_usr.id as idd', 'servicio.id', 'servicio.fecha', 'servicio.estado', 'servicio.costo', 'servicio.sentido')
             ->orderBy('servicio.fecha', 'asc')
             ->paginate(5);
 
@@ -105,24 +105,23 @@ class ServicioClienteController extends Controller
 
     public function show($id){
 
-    }
+        $serv_usr = Serv_Usr::findOrFail($id);
 
+        $servicio = Servicio::findOrFail($serv_usr -> servicio_id);
 
-    public function edit($id)
-    {
+        $nuevaFecha = new DateTime();
+        $nuevaFecha -> setTimezone(new DateTimeZone('America/La_Paz'));
+        $nuevaFecha -> setTimestamp($servicio -> fecha);
+        $servicio -> fecha = $nuevaFecha -> format('H:i');
 
-    }
+        $conductor = User::findOrFail($servicio->user_id);
+        $vehiculo = Vehiculo::findOrFail($servicio -> vehiculo_id);
+        $puntos = DB::table('punto')
+            ->where('ruta_id', '=', $servicio -> ruta_id)
+            ->orderBy('id','asc')
+            ->get();
 
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-
-    public function destroy($id)
-    {
-
+        return view('servicios.solicitar.show', ['servicio' => $servicio, 'conductor' => $conductor, 'vehiculo' => $vehiculo, 'puntos' => $puntos, 'solicitud' => $serv_usr]);
     }
 
 

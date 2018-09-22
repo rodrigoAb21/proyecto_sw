@@ -29,7 +29,7 @@
                                         <td>{{$servicio->costo}}</td>
                                         <td>
                                             <a href="{{url('/servicio/solicitar/'.$servicio->idd)}}">
-                                                <button class="btn btn-default"><i class="nc-icon nc-zoom-split"></i></button>
+                                                <button class="btn btn-default btn-block"><i class="nc-icon nc-zoom-split"></i></button>
                                             </a>
                                         </td>
                                     </tr>

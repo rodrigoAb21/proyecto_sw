@@ -113,6 +113,16 @@ CREATE TABLE serv_usr (
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE mensaje (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    fecha INT UNSIGNED NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id)
+        REFERENCES users (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
 

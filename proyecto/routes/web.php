@@ -23,6 +23,7 @@ Route::get('/cartera', 'CuentaController@verMovimientos')->middleware('auth');
 Route::resource('/vehiculos','VehiculoController')->middleware('auth');
 Route::resource('/servicio/ofrecer','ServicioController')->middleware('auth');
 Route::resource('/servicio/solicitar','ServicioClienteController')->middleware('auth');
+Route::resource('/mensajes','MensajeController')->middleware('auth');
 
 Route::post('/servicio/solicitar/busqueda', 'ServicioClienteController@buscar')->middleware('auth');
 Route::get('/servicio/solicitar/detalle/{id}', 'ServicioClienteController@detalle')->middleware('auth');
